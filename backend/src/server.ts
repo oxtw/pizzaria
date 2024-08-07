@@ -26,4 +26,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.listen(3333, () => console.log("Http Server Running 🚀"));
+app.listen(3000, () => console.log("Http Server Running 🚀"));
