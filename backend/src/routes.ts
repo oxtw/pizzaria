@@ -13,7 +13,7 @@ router.post("/users", new CreateUserController().handle);
 
 router.post("/session", new AuthUserController().handle);
 
-//Rota privada
+//Rota privada com middleware
 router.get("/me", isAuthenticated, new DetailUserController().handle);
 
 export { router };
