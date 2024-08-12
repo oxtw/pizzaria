@@ -16,7 +16,7 @@ import { ListByCategoryController } from "./controllers/product/ListByCategoryCo
 
 //order
 import { CreateOrderController } from "./controllers/order/CreateOrderController";
-
+import { RemoveOrderController } from "./controllers/order/RemoveOrderController";
 //middleware auth
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 
@@ -61,5 +61,7 @@ router.get(
 //-- ROTAS ORDER --
 
 router.post("/order", isAuthenticated, new CreateOrderController().handle);
+
+router.delete("/order", isAuthenticated, new RemoveOrderController().handle);
 
 export { router };
