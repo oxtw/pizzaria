@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import cors from "cors";
+import path from "path";
 
 import { router } from "./routes";
 
@@ -9,6 +10,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use(router);
+
+//função para encontrar um arquivo
+app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
 
 //Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
