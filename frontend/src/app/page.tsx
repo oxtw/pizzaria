@@ -29,7 +29,7 @@ export default function Home() {
               className={styles.input}
             />
 
-            <button type="submit">Acessar</button>
+            <button type="submit" className={styles.button}>Acessar</button>
 
             <Link href="/signup" className={styles.text}>
               Não possui uma conta? Cadastre-se.
