@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { api } from "@/services/api";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 export default function Home() {
   async function handleLogin(formData: FormData) {
@@ -26,6 +27,17 @@ export default function Home() {
       }
 
       console.log(response.data);
+
+      //cookie expirando em 30 dias
+      const expressTime = 60 * 60 * 24 * 30 * 1000
+
+      cookies().set('session', response.data.token,{
+        maxAge: expressTime,
+        path: "/",
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production"
+      });
+      
     } catch (error) {
       console.log(error);
       return;
