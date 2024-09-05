@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -31,8 +33,8 @@ body{
     background-color: var(--dark-700);
 }
 
-body, input, textarea, select, button{
-    font: 400, 1rem sans-serif; //1rem 16px
+body, input, textarea, select, button, nav{
+    font: 400 1rem 'Poppins', sans-serif;
 }
 
 //Caso esteja na largura de 720px, utilizará essa font-size
