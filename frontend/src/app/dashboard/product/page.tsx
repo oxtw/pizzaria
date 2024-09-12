@@ -1,5 +1,8 @@
-export default function Product(){
-    return(
-        <main><h1>pagina Produto</h1></main>
-    )
+import { Form } from './components/form'
+
+
+export default function Product() {
+  return(
+    <Form/>
+  )
 }
