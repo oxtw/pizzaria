@@ -7,15 +7,15 @@ import logoImg from "/public/logo.svg";
 import { LogOutIcon } from "lucide-react";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function Header() {
-  
   const router = useRouter();
 
   //fução para fazer logout deletando o cookie que tem o token do usuário e redirecionando.
   async function handleLogout() {
     deleteCookie("session", { path: "/" });
-
+    toast.success("Logout feito com sucesso!");
     router.replace("/");
   }
 
