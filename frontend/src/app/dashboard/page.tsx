@@ -8,8 +8,8 @@ async function getOrders(): Promise<OrderProps[] | []> {
     const token = getCookieServer();
     const response = await api.get("/orders", {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     return response.data || [];
@@ -21,11 +21,10 @@ async function getOrders(): Promise<OrderProps[] | []> {
 
 export default async function Dashboard() {
   const orders = await getOrders();
-  console.log(orders);
 
   return (
     <>
-      <Orders />
+      <Orders  orders={orders}/>
     </>
   );
 }
