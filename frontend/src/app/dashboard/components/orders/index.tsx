@@ -1,3 +1,8 @@
+"use client";
+//Só podemos consumir um provider em componentes use client
+
+import { OrderContext } from "@/providers/order";
+import { use } from "react";
 import styles from "./styles.module.scss";
 import { RefreshCw } from "lucide-react";
 import { OrderProps } from "@/lib/order.type";
@@ -8,6 +13,8 @@ interface Props {
 }
 
 export function Orders({ orders }: Props) {
+  const {isOpen, onRequestOpen } = use(OrderContext);
+
   return (
     <>
       <main className={styles.container}>
@@ -27,8 +34,8 @@ export function Orders({ orders }: Props) {
           ))}
         </section>
       </main>
-
-      <ModalOrder/>
+      {/* Se isOpen = true, executar o ModalOrder*/}
+      {isOpen && <ModalOrder /> }
     </>
   );
 }
