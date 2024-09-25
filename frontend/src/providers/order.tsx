@@ -3,6 +3,8 @@
 import { createContext, ReactNode, useState } from "react";
 import { api } from "@/services/api";
 import { getCookieClient } from "@/lib/cookieCliente";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface OrderItemProps {
   id: string;
@@ -31,7 +33,8 @@ type OrderContextData = {
   isOpen: boolean;
   onRequestOpen: (order_id: string) => Promise<void>;
   onRequestClose: () => void;
-  order:OrderItemProps[];
+  order: OrderItemProps[];
+  finishOrder: (order_id: string) => Promise<void>;
 };
 
 type OrderProviderProps = {
@@ -44,7 +47,9 @@ export function OrderProvider({ children }: OrderProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const [order, setOrder] = useState<OrderItemProps[]>([]);
-
+  
+  const router = useRouter();
+  
   //Funções para abrir e fechar o modal
   async function onRequestOpen(order_id: string) {
     // console.log(order_id);
@@ -69,13 +74,38 @@ export function OrderProvider({ children }: OrderProviderProps) {
     setIsOpen(false);
   }
 
+  async function finishOrder(order_id: string) {
+    const token = getCookieClient();
+
+    const data = {
+      order_id: order_id,
+    };
+
+    try {
+      await api.put("/order/finish", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      toast.error("Falha ao finalizar este pedido!");
+      return;
+    }
+
+    toast.success("pedido finalizado com sucesso!");
+    router.refresh();
+    setIsOpen(false);
+  }
+
   return (
     <OrderContext.Provider
       value={{
         isOpen,
         onRequestOpen,
         onRequestClose,
-        order
+        finishOrder,
+        order,
       }}
     >
       {children}
