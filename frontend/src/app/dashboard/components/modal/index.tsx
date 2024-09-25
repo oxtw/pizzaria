@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import styles from "./styles.module.scss";
 import { X } from "lucide-react";
@@ -6,41 +6,43 @@ import { use } from "react";
 import { OrderContext } from "@/providers/order";
 
 export function ModalOrder() {
-  const { onRequestClose } = use(OrderContext);
+  const { onRequestClose, order } = use(OrderContext);
 
   return (
     <dialog className={styles.dialogContainer}>
       <section className={styles.dialogContent}>
-        <button 
-        className={styles.dialogButton}
-        onClick={onRequestClose}
-        >
+        <button className={styles.dialogButton} onClick={onRequestClose}>
           <X size={40} color="#FF3f4b" />
         </button>
 
         <article className={styles.container}>
           <h2>Detalhes do pedido</h2>
+
           <span className={styles.table}>
-            Mesa <b>36</b>
+            Mesa <b>{order[0].order.table}</b>
           </span>
 
-          <section className={styles.item}>
-            <span>
-              1 - <b>Pizza catupiry</b>
+          {order[0].order?.name && (
+            <span className={styles.name}>
+              Nome da Mesa <b>{order[0].order.name}</b>
             </span>
-            <span className={styles.description}>
-              Pizza de frango com catupiry
-            </span>
-          </section>
+          )}
 
-          <section className={styles.item}>
-            <span>
-              1 - <b>Pizza catupiry</b>
-            </span>
-            <span className={styles.description}>
-              Pizza de frango com catupiry
-            </span>
-          </section>
+          {order.map((item) => (
+            <section className={styles.item} key={item.id}>
+              <span>
+                {item.amount} - <b>{item.product.name}</b>
+              </span>
+
+              <span className={styles.description}>
+                {item.product.description}
+              </span>
+
+              <span className={styles.description}>
+                {item.product.description}
+              </span>
+            </section>
+          ))}
 
           <button className={styles.submitButton}>Concluir pedido</button>
         </article>
