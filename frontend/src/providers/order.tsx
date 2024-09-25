@@ -6,7 +6,7 @@ import { getCookieClient } from "@/lib/cookieCliente";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-interface OrderItemProps {
+export interface OrderItemProps {
   id: string;
   amount: number;
   created_at: string;
@@ -49,7 +49,7 @@ export function OrderProvider({ children }: OrderProviderProps) {
   const [order, setOrder] = useState<OrderItemProps[]>([]);
   
   const router = useRouter();
-  
+
   //Funções para abrir e fechar o modal
   async function onRequestOpen(order_id: string) {
     // console.log(order_id);
